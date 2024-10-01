@@ -1,0 +1,11 @@
+<div
+  (drop)="onDrop($event)"
+  (dragover)="onDragOver($event)"
+  (click)="onDivClick()"
+  class="drop-area pointer upload-files-container"
+>
+  <p class="pointer">Drag and drop or click to upload your JSON file here </p>
+</div>
+<input type="file" #fileInput (change)="onChange(fileInput?.files)" class="hide" />
+
+<div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>

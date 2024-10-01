@@ -1,0 +1,72 @@
+<!-- file-table.component.html -->
+
+<div class="container">
+
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. code" #input>
+    </mat-form-field>
+  
+    <mat-table [dataSource]="dataSource" matSort>
+      <!-- Define the columns -->
+      <ng-container matColumnDef="filename">
+       <mat-header-cell *matHeaderCellDef mat-sort-header>Filename</mat-header-cell>
+       <mat-cell *matCellDef="let element">{{ element.filename }}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="occurrences">
+       <mat-header-cell *matHeaderCellDef mat-sort-header>Occurrences</mat-header-cell>
+       <mat-cell *matCellDef="let element">{{ element.occurrences }}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="latestDate">
+       <mat-header-cell *matHeaderCellDef mat-sort-header>Latest Date</mat-header-cell>
+       <mat-cell *matCellDef="let element">{{ element.latestDate }}</mat-cell>
+      </ng-container>
+  
+      <!-- Define the expandable row -->
+      <ng-container matColumnDef="expandOccurence">
+       <mat-header-cell *matHeaderCellDef mat-sort-header>Expand Occurence</mat-header-cell>
+       <mat-cell *matCellDef="let element">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+           <mat-panel-title>
+             <button mat-icon-button (click)="toggleExpansion(element)">
+                <mat-icon>{{ element.expanded ? 'expand_less' : 'expand_more' }}</mat-icon>
+              </button>
+           </mat-panel-title>
+  
+          </mat-expansion-panel-header>
+  
+          <!-- Nested mat-table for expandable row data -->
+          <mat-table [dataSource]="element.expandOccurence" matSort>
+  
+           <!-- Define the columns for the nested table -->
+           <ng-container matColumnDef="folderName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Folder name</mat-header-cell>
+            <mat-cell *matCellDef="let nestedElement">{{ nestedElement.folderName }}</mat-cell>
+           </ng-container>
+  
+           <ng-container matColumnDef="numberOfOtherFiles">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>No. Of Other Files</mat-header-cell>
+            <mat-cell *matCellDef="let nestedElement">{{ nestedElement.numberOfOtherFiles }}</mat-cell>
+           </ng-container>
+  
+           <ng-container matColumnDef="creationDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Creation Date</mat-header-cell>
+            <mat-cell *matCellDef="let nestedElement">{{ nestedElement.creationDate }}</mat-cell>
+           </ng-container>
+  
+           <!-- Define the rows for the nested table -->
+           <mat-header-row *matHeaderRowDef="['folderName', 'numberOfOtherFiles', 'creationDate']"></mat-header-row>
+           <mat-row *matRowDef="let nestedElement; columns: ['folderName', 'numberOfOtherFiles', 'creationDate']"></mat-row>
+          </mat-table>
+        </mat-expansion-panel>
+       </mat-cell>
+      </ng-container>
+      <!-- Define the rows for the main table -->
+      <mat-header-row *matHeaderRowDef="['filename', 'occurrences', 'latestDate', 'expandOccurence']"></mat-header-row>
+      <mat-row *matRowDef="let element; columns: ['filename', 'occurrences', 'latestDate', 'expandOccurence']"></mat-row>
+    </mat-table>
+  </div>
+  

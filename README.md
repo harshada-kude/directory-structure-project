@@ -1,3 +1,14 @@
+# How to run this project
+- Take a clone of project from the git link provided
+- Run the command "npm install" to install all the dependencies in node_modules
+- Run the command "npm start"
+- You will be able to view the project - `http://localhost:4200/`
+
+# Dependencies that has been used to implement this project are 
+- angular router
+- angular material
+- ngx tree view
+
 # DirectoryStructureProject
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.6.
